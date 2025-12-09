@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Madha Social Communication Limited - Shareholder Management</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .logo-container {
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .company-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .company-tagline {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .dashboard {
+            display: none;
+        }
+        
+        .dashboard.active {
+            display: block;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-logo {
+            font-size: 32px;
+        }
+        
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #333;
+            margin: 15px 0 10px;
+            font-size: 18px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .table-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .alert {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .actions button {
+            padding: 5px 10px;
+            font-size: 12px;
+            background: #dc3545;
+        }
+        
+        .actions button:hover {
+            background: #c82333;
+        }
+        
+        .public-view {
+            display: block;
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .public-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .public-company-name {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .public-tagline {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .public-search {
+            max-width: 500px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+        
+        .public-search input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .public-search button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .public-search button:hover {
+            background: #5568d3;
+        }
+        
+        .public-results {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .shareholder-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .shareholder-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .shareholder-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        
+        .admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .admin-btn:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Container -->
+    <div id="loginContainer" class="login-container" style="display: none;">
+        <div class="login-box">
+            <div class="logo-container">
+                <img src="madha-logo.jpg" alt="MADHA Logo" style="max-width: 250px; height: auto; margin-bottom: 20px;" />
+                <div class="company-tagline" style="font-size: 16px; color: #555; margin-top: 20px;">Social Communication Limited</div>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="login-form active">
+                <h2 style="color: #333; margin-bottom: 30px;">Admin Login</h2>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="username" placeholder="Enter username" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Enter password" required />
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px;">
+                        <button type="submit" class="login-btn" style="flex:1;">Login</button>
+                        <a href="#" id="forgotLink" style="color:#667eea; font-weight:600; text-decoration:none; margin-left:10px;">Forgot password?</a>
+                    </div>
+                </form>
+                <form id="forgotForm" style="display:none; margin-top:15px;" onsubmit="handleForgot(event)">
+                    <div class="form-group">
+                        <label>Username to reset</label>
+                        <input type="text" id="forgotUsername" placeholder="Enter username" required />
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" id="forgotNewPassword" placeholder="New password" required />
+                    </div>
+                    <div class="button-group" style="margin-top:0;">
+                        <button type="submit">Reset Password</button>
+                        <button type="button" class="secondary" onclick="hideForgot()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dashboard Container -->
+    <div id="dashboardContainer" class="dashboard">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="madha-logo.jpg" alt="MADHA Logo" style="max-width: 80px; height: 60px; object-fit: contain;" />
+                    <div style="margin-left: 15px;">
+                        <div class="header-title">MADHA</div>
+                        <div style="font-size: 12px; opacity: 0.9;">Social Communication Limited</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <img id="adminSprite" src="" alt="" style="width:40px;height:40px;border-radius:6px;display:none;object-fit:cover;border:2px solid rgba(255,255,255,0.2);" />
+                    <button class="logout-btn" onclick="showAdminUsers()" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);">Manage Admins</button>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <!-- Admin Search Section -->
+            <div class="form-section" style="background: #f0f8ff; border-left: 4px solid #00A8E8; margin-bottom: 30px;">
+                <h2 style="color: #0099CC; margin-bottom: 20px;">🔍 Search Shareholder Details</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 15px; align-items: end;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Search by Name or Folio No</label>
+                        <input type="text" id="adminSearchInput" placeholder="Enter name or folio number..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" />
+                    </div>
+                    <button type="button" onclick="adminSearchShareholders()" style="background: #0099CC; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Search</button>
+                    <button type="button" onclick="clearAdminSearch()" style="background: #999; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Clear</button>
+                </div>
+                <div id="adminSearchResults" style="margin-top: 20px;"></div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Add New Shareholder</h2>
+                <form id="addForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>SRL</label>
+                            <input type="text" id="srl" />
+                        </div>
+                        <div class="form-group">
+                            <label>FOLIO NO</label>
+                            <input type="text" id="folioNo" />
+                        </div>
+                        <div class="form-group">
+                            <label>NAME 1 *</label>
+                            <input type="text" id="name1" required />
+                        </div>
+                        <div class="form-group">
+                            <label>GENDER</label>
+                            <select id="gender">
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>SHARES *</label>
+                            <input type="number" id="shares" required />
+                        </div>
+                        <div class="form-group">
+                            <label>NOMINEE NAME</label>
+                            <input type="text" id="nomineeName" />
+                        </div>
+                        <div class="form-group">
+                            <label>NAME 3</label>
+                            <input type="text" id="name3" />
+                        </div>
+                        <div class="form-group">
+                            <label>ADD1</label>
+                            <input type="text" id="add1" />
+                        </div>
+                        <div class="form-group">
+                            <label>ADD2</label>
+                            <input type="text" id="add2" />
+                        </div>
+                        <div class="form-group">
+                            <label>ADD3</label>
+                            <input type="text" id="add3" />
+                        </div>
+                        <div class="form-group">
+                            <label>CITY</label>
+                            <input type="text" id="city" />
+                        </div>
+                        <div class="form-group">
+                            <label>PIN</label>
+                            <input type="text" id="pin" />
+                        </div>
+                        <div class="form-group">
+                            <label>MOBILE NO</label>
+                            <input type="text" id="mobileNo" />
+                        </div>
+                        <div class="form-group">
+                            <label>EMAIL_ID</label>
+                            <input type="email" id="emailId" />
+                        </div>
+                        <div class="form-group">
+                            <label>STATE</label>
+                            <input type="text" id="state" />
+                        </div>
+                        <div class="form-group">
+                            <label>COUNTRY</label>
+                            <input type="text" id="country" />
+                        </div>
+                        <div class="form-group">
+                            <label>Date of allotment /Transfer</label>
+                            <input type="date" id="dateOfAllotment" />
+                        </div>
+                        <div class="form-group">
+                            <label>PAN1</label>
+                            <input type="text" id="pan1" />
+                        </div>
+                        <div class="form-group">
+                            <label>AADHAR NO</label>
+                            <input type="text" id="aadharNo" />
+                        </div>
+                        <div class="form-group">
+                            <label>OCCUPATION</label>
+                            <input type="text" id="occupation" />
+                        </div>
+                        <div class="form-group">
+                            <label>DOB</label>
+                            <input type="date" id="dob" />
+                        </div>
+                        <div class="form-group">
+                            <label>F_H_NAME</label>
+                            <input type="text" id="fHName" />
+                        </div>
+                        <div class="form-group">
+                            <label>OPEN_DATE</label>
+                            <input type="date" id="openDate" />
+                        </div>
+                        <div class="form-group">
+                            <label>FACE_VALUE</label>
+                            <input type="number" id="faceValue" step="0.01" />
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Shareholder</button>
+                        <button type="reset" class="secondary">Clear Form</button>
+                    </div>
+                </form>
+                <div id="messageDiv"></div>
+            </div>
+
+            <div class="table-section">
+                <h2>Shareholders List</h2>
+                <div class="button-group">
+                    <button id="exportBtn">Export to Excel</button>
+                    <input type="file" id="importFile" accept=".xlsx, .xls" style="padding: 8px;" />
+                    <button id="importBtn" type="button">Import from Excel</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SRL</th>
+                            <th>FOLIO NO</th>
+                            <th>NAME 1</th>
+                            <th>GENDER</th>
+                            <th>SHARES</th>
+                            <th>NOMINEE NAME</th>
+                            <th>MOBILE NO</th>
+                            <th>EMAIL_ID</th>
+                            <th>CITY</th>
+                            <th>STATE</th>
+                            <th>PAN1</th>
+                            <th>AADHAR NO</th>
+                            <th>OCCUPATION</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shareholderList"></tbody>
+                </table>
+            </div>
+            
+            <!-- Edit Modal -->
+            <div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; overflow-y:auto; padding:20px;">
+                <div style="background:white; max-width:800px; margin:30px auto; padding:30px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; border-bottom:2px solid #0099CC; padding-bottom:15px;">
+                        <h2 style="color:#0099CC; margin:0;\">Edit Shareholder Details</h2>
+                        <button type="button" onclick="closeEditModal()" style="background:#999; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-size:14px; font-weight:bold;\">Close</button>
+                    </div>
+                    <form id="editForm" style="max-height:500px; overflow-y:auto; padding-right:10px;">
+                        <div class="form-grid">
+                            <input type="hidden" id="editSrl" />
+                            <input type="hidden" id="editId" />
+                            <div class="form-group"><label>NAME 1 *</label><input type="text" id="editName1" required /></div>
+                            <div class="form-group"><label>FOLIO NO</label><input type="text" id="editFolioNo" /></div>
+                            <div class="form-group"><label>SRL</label><input type="text" id="editSrl2" /></div>
+                            <div class="form-group"><label>GENDER</label><select id="editGender"><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div>
+                            <div class="form-group"><label>SHARES</label><input type="number" id="editShares" required /></div>
+                            <div class="form-group"><label>NOMINEE NAME</label><input type="text" id="editNomineeName" /></div>
+                            <div class="form-group"><label>NAME 3</label><input type="text" id="editName3" /></div>
+                            <div class="form-group"><label>ADDRESS 1</label><input type="text" id="editAdd1" /></div>
+                            <div class="form-group"><label>ADDRESS 2</label><input type="text" id="editAdd2" /></div>
+                            <div class="form-group"><label>ADDRESS 3</label><input type="text" id="editAdd3" /></div>
+                            <div class="form-group"><label>CITY</label><input type="text" id="editCity" /></div>
+                            <div class="form-group"><label>PIN</label><input type="text" id="editPin" /></div>
+                            <div class="form-group"><label>MOBILE NO</label><input type="text" id="editMobileNo" /></div>
+                            <div class="form-group"><label>EMAIL</label><input type="text" id="editEmailId" /></div>
+                            <div class="form-group"><label>STATE</label><input type="text" id="editState" /></div>
+                            <div class="form-group"><label>COUNTRY</label><input type="text" id="editCountry" /></div>
+                            <div class="form-group"><label>DATE OF ALLOTMENT</label><input type="date" id="editDateOfAllotment" /></div>
+                            <div class="form-group"><label>PAN</label><input type="text" id="editPan1" /></div>
+                            <div class="form-group"><label>AADHAR NO</label><input type="text" id="editAadharNo" /></div>
+                            <div class="form-group"><label>OCCUPATION</label><input type="text" id="editOccupation" /></div>
+                            <div class="form-group"><label>DOB</label><input type="date" id="editDob" /></div>
+                            <div class="form-group"><label>FATHER'S NAME</label><input type="text" id="editFHName" /></div>
+                            <div class="form-group"><label>OPEN DATE</label><input type="date" id="editOpenDate" /></div>
+                            <div class="form-group"><label>FACE VALUE</label><input type="number" id="editFaceValue" step="0.01" /></div>
+                        </div>
+                        <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
+                            <button type="submit" style="background:#0099CC; color:white; padding:10px 30px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">Save Changes</button>
+                            <button type="button" onclick="deleteEditRecord()" style="background:#dc3545; color:white; padding:10px 30px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">Delete</button>
+                            <button type="button" onclick="closeEditModal()" style="background:#999; color:white; padding:10px 30px; border:none; border-radius:4px; cursor:pointer;">Cancel</button>
+                        </div>
+                    </form>\n                </div>\n            </div>\n            
+            <!-- Admin Users Section (hidden by default) -->
+            <div id="adminUsersSection" class="form-section" style="display:none;">
+                <h2>Admin Users</h2>
+                <p style="color:#666; font-size:13px;">Manage admin accounts (development-only). Passwords are stored locally in your browser.</p>
+                <form id="adminAddForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="adminUsername" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="adminPassword" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Sprite / Avatar URL (optional)</label>
+                            <input type="text" id="adminSpriteUrl" placeholder="https://.../avatar.png" />
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Add Admin</button>
+                        <button type="button" class="secondary" onclick="hideAdminUsers()">Close</button>
+                    </div>
+                </form>
+                <div id="adminListDiv" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Public View -->
+    <div id="publicContainer" class="public-view">
+        <div style="margin-bottom: 40px;">
+            <img src="madha-logo.svg" alt="MADHA Social Communication Limited" style="max-width: 400px; height: auto; margin-bottom: 20px;" />
+        </div>
+        
+        <div class="public-company-name" style="font-size: 36px; margin-top: 20px;">MADHA SOCIAL COMMUNICATION LIMITED</div>
+        <div class="public-tagline">SHAREHOLDER MANAGEMENT</div>
+        <div style="color: #666; font-size: 14px; margin-bottom: 50px; margin-top: 10px;">Shareholder Directory & Management System</div>
+        
+        <div class="public-search">
+            <input type="text" id="publicSearchInput" placeholder="Search by Name or Folio No..." />
+            <button onclick="searchShareholders()">Search</button>
+        </div>
+        
+        <div class="public-results" id="publicResults"></div>
+        <button class="admin-btn" onclick="showLogin()">Admin Login</button>
+    </div>
+
+    <script>
+        let isLoggedIn = false;
+        let allShareholders = [];
+        let admins = [];
+        let currentAdmin = null;
+
+        // Admin storage helpers (localStorage)
+        function loadAdminsFromStorage() {
+            try {
+                const raw = localStorage.getItem('admins');
+                admins = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                admins = [];
+            }
+            ensureDefaultAdmin();
+        }
+
+        function saveAdminsToStorage() {
+            localStorage.setItem('admins', JSON.stringify(admins || []));
+        }
+
+        function ensureDefaultAdmin() {
+            if (!admins || admins.length === 0) {
+                admins = [{ username: 'admin', password: 'admin123', spriteUrl: '' }];
+                saveAdminsToStorage();
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            loadAdminsFromStorage();
+            const match = admins.find(a => a.username === username && a.password === password);
+            if (match) {
+                isLoggedIn = true;
+                currentAdmin = match;
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('publicContainer').style.display = 'none';
+                document.getElementById('dashboardContainer').classList.add('active');
+                loadShareholders();
+                // show sprite if available
+                const img = document.getElementById('adminSprite');
+                if (currentAdmin && currentAdmin.spriteUrl) {
+                    img.src = currentAdmin.spriteUrl;
+                    img.style.display = 'inline-block';
+                } else {
+                    img.style.display = 'none';
+                }
+            } else {
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = 'Invalid username or password';
+                errorDiv.classList.add('show');
+                setTimeout(() => errorDiv.classList.remove('show'), 3000);
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('publicContainer').style.display = 'none';
+            document.getElementById('dashboardContainer').classList.remove('active');
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('publicContainer').style.display = 'block';
+            document.getElementById('dashboardContainer').classList.remove('active');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            // Refresh public search data after logout
+            loadPublicSearchData();
+        }
+
+        // --- Admin users management (localStorage-backed) ---
+        function showAdminUsers() {
+            loadAdminsFromStorage();
+            document.getElementById('adminUsersSection').style.display = 'block';
+            renderAdminUsers();
+            // Scroll the admin section into view
+            setTimeout(() => {
+                const section = document.getElementById('adminUsersSection');
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+
+        function hideAdminUsers() {
+            document.getElementById('adminUsersSection').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderAdminUsers() {
+            const div = document.getElementById('adminListDiv');
+            if (!admins || admins.length === 0) {
+                div.innerHTML = '<p style="color:#999;">No admin users found</p>';
+                return;
+            }
+            let html = '<table style="width:100%; border-collapse:collapse; font-size:13px;">';
+            html += '<thead><tr><th style="text-align:left; padding:8px;">Username</th><th style="text-align:left; padding:8px;">Sprite</th><th style="text-align:left; padding:8px;">Actions</th></tr></thead>';
+            html += '<tbody>';
+            admins.forEach((a, idx) => {
+                html += '<tr>' +
+                    '<td style="padding:8px;">' + a.username + '</td>' +
+                    '<td style="padding:8px;">' + (a.spriteUrl ? '<img src="' + a.spriteUrl + '" style="width:36px;height:36px;border-radius:6px;object-fit:cover;" />' : '-') + '</td>' +
+                    '<td style="padding:8px;"><div style="display:flex;gap:8px;align-items:center;">' +
+                    '<button onclick="showEditPassword(' + idx + ')" style="padding:6px 10px;">Edit Password</button>' +
+                    '<button onclick="deleteAdminUser(' + idx + ')" style="background:#dc3545;padding:6px 10px;color:white;">Delete</button>' +
+                    '</div>' +
+                    '<div id="editPwDiv' + idx + '" style="display:none; margin-top:8px;">' +
+                    '<input id="editPwInput' + idx + '" type="password" placeholder="New password" style="padding:6px; margin-right:6px;" />' +
+                    '<button onclick="saveAdminPassword(' + idx + ')" style="padding:6px 10px;">Save</button>' +
+                    '<button onclick="cancelEditPassword(' + idx + ')" class="secondary" style="padding:6px 10px;">Cancel</button>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>';
+            });
+            html += '</tbody></table>';
+            div.innerHTML = html;
+        }
+
+        function showEditPassword(idx) {
+            document.getElementById('editPwDiv' + idx).style.display = 'block';
+        }
+
+        function cancelEditPassword(idx) {
+            document.getElementById('editPwDiv' + idx).style.display = 'none';
+        }
+
+        function saveAdminPassword(idx) {
+            const input = document.getElementById('editPwInput' + idx);
+            const val = input.value;
+            if (!val) return showMessage('Password cannot be empty', 'error');
+            admins[idx].password = val;
+            saveAdminsToStorage();
+            renderAdminUsers();
+            showMessage('Password updated');
+        }
+
+        function deleteAdminUser(idx) {
+            if (!confirm('Delete admin ' + admins[idx].username + '?')) return;
+            admins.splice(idx, 1);
+            if (admins.length === 0) ensureDefaultAdmin();
+            saveAdminsToStorage();
+            renderAdminUsers();
+            showMessage('Admin deleted');
+        }
+
+        function showMessage(message, type = 'success') {
+            const div = document.getElementById('messageDiv');
+            div.innerHTML = '<div class="alert ' + type + '">' + message + '</div>';
+            setTimeout(() => div.innerHTML = '', 5000);
+        }
+
+
+
+        // Forgot password handlers
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.id === 'forgotLink') {
+                e.preventDefault();
+                document.getElementById('forgotForm').style.display = 'block';
+            }
+        });
+
+        function hideForgot() {
+            document.getElementById('forgotForm').style.display = 'none';
+        }
+
+        function handleForgot(e) {
+            e.preventDefault();
+            const user = document.getElementById('forgotUsername').value.trim();
+            const newPw = document.getElementById('forgotNewPassword').value;
+            if (!user || !newPw) return showMessage('Please provide username and new password', 'error');
+            loadAdminsFromStorage();
+            const idx = admins.findIndex(a => a.username === user);
+            if (idx === -1) return showMessage('Username not found', 'error');
+            admins[idx].password = newPw;
+            saveAdminsToStorage();
+            hideForgot();
+            showMessage('Password reset successful');
+        }
+
+        async function loadPublicSearchData() {
+            try {
+                const response = await fetch('/api/shareholders');
+                allShareholders = await response.json();
+            } catch (err) {
+                console.error('Error loading shareholders for public search:', err);
+            }
+        }
+
+        async function loadShareholders() {
+            try {
+                const response = await fetch('/api/shareholders');
+                allShareholders = await response.json();
+                const tbody = document.getElementById('shareholderList');
+                
+                if (allShareholders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="14" style="text-align:center; color:#999;">No shareholders found</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = allShareholders.map(s => 
+                    '<tr><td>' + (s.srl || '-') + '</td>' +
+                    '<td>' + (s.folioNo || '-') + '</td>' +
+                    '<td><strong>' + (s.name1 || s.name || '-') + '</strong></td>' +
+                    '<td>' + (s.gender || '-') + '</td>' +
+                    '<td>' + s.shares + '</td>' +
+                    '<td>' + (s.nomineeName || '-') + '</td>' +
+                    '<td>' + (s.mobileNo || '-') + '</td>' +
+                    '<td>' + (s.emailId || '-') + '</td>' +
+                    '<td>' + (s.city || '-') + '</td>' +
+                    '<td>' + (s.state || '-') + '</td>' +
+                    '<td>' + (s.pan1 || '-') + '</td>' +
+                    '<td>' + (s.aadharNo || '-') + '</td>' +
+                    '<td>' + (s.occupation || '-') + '</td>' +
+                    '<td><button onclick="deleteShareholder(' + s.id + ')" style="background: #dc3545; padding: 5px 10px; font-size: 12px;">Delete</button></td>' +
+                    '</tr>'
+                ).join('');
+            } catch (error) {
+                showMessage('Error loading shareholders: ' + error.message, 'error');
+            }
+        }
+
+        document.getElementById('addForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                srl: document.getElementById('srl').value || null,
+                folioNo: document.getElementById('folioNo').value || null,
+                name1: document.getElementById('name1').value,
+                gender: document.getElementById('gender').value || null,
+                shares: parseInt(document.getElementById('shares').value),
+                nomineeName: document.getElementById('nomineeName').value || null,
+                name3: document.getElementById('name3').value || null,
+                add1: document.getElementById('add1').value || null,
+                add2: document.getElementById('add2').value || null,
+                add3: document.getElementById('add3').value || null,
+                city: document.getElementById('city').value || null,
+                pin: document.getElementById('pin').value || null,
+                mobileNo: document.getElementById('mobileNo').value || null,
+                emailId: document.getElementById('emailId').value || null,
+                state: document.getElementById('state').value || null,
+                country: document.getElementById('country').value || null,
+                dateOfAllotment: document.getElementById('dateOfAllotment').value || null,
+                pan1: document.getElementById('pan1').value || null,
+                aadharNo: document.getElementById('aadharNo').value || null,
+                occupation: document.getElementById('occupation').value || null,
+                dob: document.getElementById('dob').value || null,
+                fHName: document.getElementById('fHName').value || null,
+                openDate: document.getElementById('openDate').value || null,
+                faceValue: document.getElementById('faceValue').value ? parseFloat(document.getElementById('faceValue').value) : null
+            };
+            
+            try {
+                const response = await fetch('/api/shareholders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    showMessage('Shareholder added successfully!');
+                    document.getElementById('addForm').reset();
+                    loadShareholders();
+                } else {
+                    showMessage('Error adding shareholder', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            window.location.href = '/api/export';
+        });
+
+        document.getElementById('importBtn').addEventListener('click', async () => {
+            const file = document.getElementById('importFile').files[0];
+            if (!file) return showMessage('Please select a file', 'error');
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+                const response = await fetch('/api/import', { method: 'POST', body: formData });
+                if (response.ok) {
+                    showMessage('Import successful!');
+                    document.getElementById('importFile').value = '';
+                    loadShareholders();
+                    // Update public search data as well
+                    await loadPublicSearchData();
+                } else {
+                    showMessage('Error importing file', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        });
+
+        function deleteShareholder(id) {
+            if (confirm('Are you sure you want to delete this shareholder?')) {
+                fetch('/api/shareholders/' + id, { method: 'DELETE' })
+                    .then(() => {
+                        showMessage('Shareholder deleted!');
+                        loadShareholders();
+                    })
+                    .catch(error => showMessage('Error: ' + error.message, 'error'));
+            }
+        }
+
+        function adminSearchShareholders() {
+            const input = document.getElementById('adminSearchInput');
+            const queryRaw = input.value || '';
+            const query = String(queryRaw).trim().toLowerCase();
+            const resultsDiv = document.getElementById('adminSearchResults');
+
+            if (!query) {
+                resultsDiv.innerHTML = '<p style="color: #999;">Enter a search term</p>';
+                return;
+            }
+
+            const results = allShareholders.filter(s => {
+                const name = (s.name1 || s.name || '').toString().toLowerCase();
+                const folio = (s.folioNo || '').toString().toLowerCase();
+                return (name && name.includes(query)) || (folio && folio.includes(query));
+            });
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: #999;">No shareholders found</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<h4 style="margin-bottom: 15px;">' + results.length + ' result(s) found</h4>' +
+                results.map((s, idx) =>
+                '<div style="background: #f9f9f9; padding: 15px; margin-bottom: 10px; border-radius: 4px; border-left: 3px solid #0099CC;">' +
+                '<div style="display: flex; justify-content: space-between; align-items: center;">' +
+                '<div>' +
+                '<h4 style="color: #333; margin-bottom: 8px;">' + (s.name1 || 'N/A') + '</h4>' +
+                '<p style="font-size: 13px; margin: 3px 0;"><strong>Folio:</strong> ' + (s.folioNo || 'N/A') + ' | <strong>Shares:</strong> ' + (s.shares || 'N/A') + ' | <strong>Mobile:</strong> ' + (s.mobileNo || 'N/A') + '</p>' +
+                '</div>' +
+                '<button type="button" onclick="openEditModal(' + JSON.stringify(s).replace(/"/g, '&quot;') + ')" style="background: #0099CC; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; margin-left: 10px;">Edit</button>' +
+                '</div>' +
+                '</div>'
+                ).join('');
+        }
+
+        function clearAdminSearch() {
+            document.getElementById('adminSearchInput').value = '';
+            document.getElementById('adminSearchResults').innerHTML = '';
+        }
+
+        async function searchShareholders() {
+            const input = document.getElementById('publicSearchInput');
+            const queryRaw = input.value || '';
+            const query = String(queryRaw).trim().toLowerCase();
+            const resultsDiv = document.getElementById('publicResults');
+
+            if (!query) {
+                resultsDiv.innerHTML = '<p style="color: #999;">Enter a name or folio number to search</p>';
+                return;
+            }
+
+            // Always fetch latest data before searching to include recent imports
+            try {
+                await loadPublicSearchData();
+            } catch (err) {
+                console.error('Error refreshing data before search:', err);
+            }
+
+            const results = allShareholders.filter(s => {
+                // normalize values
+                const name = (s.name1 || s.name || '').toString().toLowerCase();
+                const folio = (s.folioNo || '').toString().toLowerCase();
+
+                // match by name (partial) or folio (partial)
+                return (name && name.includes(query)) || (folio && folio.includes(query));
+            });
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: #999;">No shareholders found matching your search</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<h3 style="margin-bottom: 20px;">Search Results (' + results.length + ' found)</h3>' + 
+                results.map(s =>
+                '<div class="shareholder-card" style="background: white; padding: 20px; margin-bottom: 15px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #0099CC;">' +
+                '<h3 style="color: #0099CC; margin-bottom: 15px;">' + (s.name1 || s.name || '-') + '</h3>' +
+                '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 14px;">' +
+                '<p><strong>Folio No:</strong> ' + (s.folioNo || 'N/A') + '</p>' +
+                '<p><strong>Shares:</strong> ' + (s.shares != null ? s.shares : 'N/A') + '</p>' +
+                '<p><strong>Gender:</strong> ' + (s.gender || 'N/A') + '</p>' +
+                '<p><strong>City:</strong> ' + (s.city || 'N/A') + '</p>' +
+                '<p><strong>State:</strong> ' + (s.state || 'N/A') + '</p>' +
+                '<p><strong>Pin Code:</strong> ' + (s.pin || 'N/A') + '</p>' +
+                '<p><strong>Mobile:</strong> ' + (s.mobileNo || 'N/A') + '</p>' +
+                '<p><strong>Email:</strong> ' + (s.emailId || 'N/A') + '</p>' +
+                '<p><strong>PAN:</strong> ' + (s.pan1 || 'N/A') + '</p>' +
+                '<p><strong>Aadhar:</strong> ' + (s.aadharNo || 'N/A') + '</p>' +
+                '<p><strong>DOB:</strong> ' + (s.dob || 'N/A') + '</p>' +
+                '<p><strong>Occupation:</strong> ' + (s.occupation || 'N/A') + '</p>' +
+                '</div>' +
+                '<p style="margin-top: 10px; font-size: 13px; color: #666;">' +
+                '<strong>Address:</strong> ' + (s.add1 || '') + (s.add2 ? ', ' + s.add2 : '') + (s.add3 ? ', ' + s.add3 : '') + ' ' + (s.country || 'N/A') +
+                '</p>' +
+                '</div>'
+            ).join('');
+        }
+
+        // Add admin form listener
+        const adminForm = document.getElementById('adminAddForm');
+        if (adminForm) {
+            adminForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const user = document.getElementById('adminUsername').value.trim();
+                const pw = document.getElementById('adminPassword').value;
+                const sprite = document.getElementById('adminSpriteUrl').value.trim();
+                if (!user || !pw) return showMessage('Username and password required', 'error');
+                if (admins.find(a => a.username === user)) return showMessage('Username already exists', 'error');
+                admins.push({ username: user, password: pw, spriteUrl: sprite });
+                saveAdminsToStorage();
+                renderAdminUsers();
+                adminForm.reset();
+                showMessage('Admin added');
+            });
+        }
+
+        // Forgot password handlers
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.id === 'forgotLink') {
+                e.preventDefault();
+                document.getElementById('forgotForm').style.display = 'block';
+            }
+        });
+
+        // Initial load - show public view
+        document.getElementById('publicContainer').style.display = 'block';
+        document.getElementById('dashboardContainer').classList.remove('active');
+
+        // Load admin users and shareholders for public search
+        loadAdminsFromStorage();
+        loadPublicSearchData();
+
+        // Bind Enter key on the public search input to trigger search
+        (function bindPublicSearchEnter() {
+            const input = document.getElementById('publicSearchInput');
+            if (!input) return;
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    searchShareholders();
+                }
+            });
+        })();
+
+        // Edit Modal Functions
+        let currentEditRecord = null;
+
+        function openEditModal(record) {
+            currentEditRecord = record;
+            document.getElementById('editId').value = record.id || '';
+            document.getElementById('editName1').value = record.name1 || '';
+            document.getElementById('editFolioNo').value = record.folioNo || '';
+            document.getElementById('editSrl2').value = record.srl || '';
+            document.getElementById('editGender').value = record.gender || '';
+            document.getElementById('editShares').value = record.shares || '';
+            document.getElementById('editNomineeName').value = record.nomineeName || '';
+            document.getElementById('editName3').value = record.name3 || '';
+            document.getElementById('editAdd1').value = record.add1 || '';
+            document.getElementById('editAdd2').value = record.add2 || '';
+            document.getElementById('editAdd3').value = record.add3 || '';
+            document.getElementById('editCity').value = record.city || '';
+            document.getElementById('editPin').value = record.pin || '';
+            document.getElementById('editMobileNo').value = record.mobileNo || '';
+            document.getElementById('editEmailId').value = record.emailId || '';
+            document.getElementById('editState').value = record.state || '';
+            document.getElementById('editCountry').value = record.country || '';
+            document.getElementById('editDateOfAllotment').value = record.dateOfAllotment || '';
+            document.getElementById('editPan1').value = record.pan1 || '';
+            document.getElementById('editAadharNo').value = record.aadharNo || '';
+            document.getElementById('editOccupation').value = record.occupation || '';
+            document.getElementById('editDob').value = record.dob || '';
+            document.getElementById('editFHName').value = record.fHName || '';
+            document.getElementById('editOpenDate').value = record.openDate || '';
+            document.getElementById('editFaceValue').value = record.faceValue || '';
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+            currentEditRecord = null;
+        }
+
+        document.getElementById('editForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('editId').value || (currentEditRecord ? currentEditRecord.id : null);
+            
+            const data = {
+                srl: document.getElementById('editSrl2').value || null,
+                folioNo: document.getElementById('editFolioNo').value || null,
+                name1: document.getElementById('editName1').value,
+                gender: document.getElementById('editGender').value || null,
+                shares: parseInt(document.getElementById('editShares').value) || 0,
+                nomineeName: document.getElementById('editNomineeName').value || null,
+                name3: document.getElementById('editName3').value || null,
+                add1: document.getElementById('editAdd1').value || null,
+                add2: document.getElementById('editAdd2').value || null,
+                add3: document.getElementById('editAdd3').value || null,
+                city: document.getElementById('editCity').value || null,
+                pin: document.getElementById('editPin').value || null,
+                mobileNo: document.getElementById('editMobileNo').value || null,
+                emailId: document.getElementById('editEmailId').value || null,
+                state: document.getElementById('editState').value || null,
+                country: document.getElementById('editCountry').value || null,
+                dateOfAllotment: document.getElementById('editDateOfAllotment').value || null,
+                pan1: document.getElementById('editPan1').value || null,
+                aadharNo: document.getElementById('editAadharNo').value || null,
+                occupation: document.getElementById('editOccupation').value || null,
+                dob: document.getElementById('editDob').value || null,
+                fHName: document.getElementById('editFHName').value || null,
+                openDate: document.getElementById('editOpenDate').value || null,
+                faceValue: document.getElementById('editFaceValue').value ? parseFloat(document.getElementById('editFaceValue').value) : null
+            };
+
+            try {
+                const response = await fetch('/api/shareholders/' + id, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    showMessage('Shareholder updated successfully!');
+                    closeEditModal();
+                    loadShareholders();
+                    clearAdminSearch();
+                } else {
+                    showMessage('Error updating shareholder', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        });
+
+        async function deleteEditRecord() {
+            if (!confirm('Are you sure you want to delete this shareholder record?')) return;
+            const id = document.getElementById('editId').value || (currentEditRecord ? currentEditRecord.id : null);
+            
+            try {
+                const response = await fetch('/api/shareholders/' + id, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    showMessage('Shareholder deleted successfully!');
+                    closeEditModal();
+                    loadShareholders();
+                    clearAdminSearch();
+                } else {
+                    showMessage('Error deleting shareholder', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target === modal) {
+                closeEditModal();
+            }
+        }
+    </script>
+</body>
+</html>
